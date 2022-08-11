@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>FLASK</title>
+</head>
+    <body>
+        <h1> Olá Mundo Jinja2!! <br>Nome: {{n}}</h1>
+
+        <table border="1">
+            {% for prod in aProdutos%}
+            <tr>
+                <td>{{prod.nome}}</td>
+                <td>{{prod.preco}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
