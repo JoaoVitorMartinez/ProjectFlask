@@ -37,7 +37,13 @@ def jogos():
 
 @app.route('/cadastra')
 def cadastraJogo():
-    return render_template("form_jogos.html"), 200
+    if "usuario" not in session or session["usuario"] == None:
+        return redirect(url_for("login", proxima=url_for(cadastraJogo))), 200
+    else:
+        
+        return render_template("form_jogos.html"), 200
+    
+    
 
 
 @app.route("/form_jogos", methods=["GET", "POST"])
@@ -89,7 +95,11 @@ def form_recebe():
 
 @app.route('/login')
 def login():
-    return render_template("login.html"), 200
+    proxima=''
+    if request.args.get("next"):
+        proxima = request.args.get("next")
+    
+    return render_template("login.html", proxima=proxima), 200
 
 
 @app.route('/login_validar', methods=['POST'])
@@ -99,9 +109,11 @@ def login_validar():
         session["senha"] = request.form["senha"]
         session["codigo"] = 1
         
+        proxima_pagina = request.form["proxima"]
+        
         flash("Usuário autenticado.")
 
-        return redirect(url_for("jogos"))
+        return redirect('/{}'.format(proxima_pagina))
     else:
         
         flash("Usuário/senha incorretos.")
@@ -119,7 +131,7 @@ def acesso_restrito():
     
 @app.route('/logout')
 def logout():
-    flash(session["usuario"] + " saiu.")
+    flash(" saiu.")
     session["usuario"] = None
     session["senha"] = None
     session["codigo"] = None
