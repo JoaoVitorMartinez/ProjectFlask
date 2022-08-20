@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/bootstrap.css">
-    <title>FLASK</title>
-    
-</head>
-    <body>
+{% extends "template.html" %}
+{% block conteudo %}
         <h1> Testando o Jinja2 <br>Enviando variável: {{n}}</h1>
 
         <table border="1">
@@ -18,5 +11,4 @@
             {% endfor %}
         </table>
         
-    </body>
-</html>
+{% endblock %}
