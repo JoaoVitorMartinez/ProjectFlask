@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 {% block conteudo %}
         <h1>Lista de Jogos Favoritos</h1>
-        {% for jogo in jogos %}
+        
         <table class="table table-striped table-responsive table-bordered" style="width: auto; align-self: center; text-align: center;">
             <thead class="thead-default">
                 <tr>
@@ -11,15 +11,17 @@
                 </tr>
             </thead>
             <tbody>
+                {% for jogo in jogos %}
                 <tr>
                     <td>{{jogo.nome}}</td>
                     <td>{{jogo.genero}}</td>
                     <td>{{jogo.console}}</td>
                 </tr>
+                {% endfor %}
             </tbody>
             
             
         </table>
-        {% endfor %}
+        
         
 {% endblock %}

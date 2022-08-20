@@ -1,10 +1,22 @@
 {% extends "template.html" %}
 {% block conteudo %}
 
-        <form method="POST" action="login_validar">
-            <input type="text" name="usuario" id="">
-            <input type="password" name="senha" id="">
-            <input type="submit" value="enviar">
-        </form>
-        
+<form method="POST" action="login_validar">
+    <div class="form-group">
+        <label for="nome">Usuario:</label>
+        <input type="text" name="usuario" id="" class="form-control" style="width: 300px;">
+
+    </div>
+
+    <div>
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" id="" class="form-control" style="width: 300px;">
+
+
+
+    </div>
+
+    <input type="submit" value="enviar" class="btn btn-primary btn-salvar">
+</form>
+
 {% endblock %}
