@@ -5,12 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/bootstrap.css">
-    <title>Exemplo de Formulário</title>
+    <title>FLASK</title>
 </head>
 <body>
-    <form method="POST" action="/form_recebe">
-        Digite seu nome: <input type="text" name="nome">
+    <h1>Cadastra Jogo</h1>
+    <form method="POST" action="/form_jogos">
+
+        
+        Nome: <input type="text" name="nome">
+        Genero: <input type="text" name="genero">
+        Console: <input type="text" name="console">
         <input type="submit" value="Enviar">
     </form>
+    
 </body>
 </html>

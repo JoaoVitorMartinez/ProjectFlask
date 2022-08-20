@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/bootstrap.css">
+    <title>FLASK</title>
+    
+</head>
+    <body>
+        <h1>Lista de Jogos Favoritos</h1>
+        {% for jogo in jogos %}
+        <table class="table table-striped table-responsive table-bordered" style="width: auto; height: 300px; align-self: center; text-align: center;">
+            <thead class="thead-default">
+                <tr>
+                    <th>Nome</th>
+                    <th>Genero</th>
+                    <th>Console</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{jogo.nome}}</td>
+                    <td>{{jogo.genero}}</td>
+                    <td>{{jogo.console}}</td>
+                </tr>
+            </tbody>
+            
+            
+        </table>
+        {% endfor %}
+        
+    </body>
+</html>
