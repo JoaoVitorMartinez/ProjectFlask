@@ -5,6 +5,16 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
         <title>FLASK | HOME</title>
         
+        {% with messages = get_flashed_messages() %}
+            {% if messages %} 
+                <ul id="messages" class="list-unstyled">
+                {% for message in messages %}
+                    <li class="alert alert-success">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
     </head>
     <body>
         {% block conteudo %} {% endblock %}

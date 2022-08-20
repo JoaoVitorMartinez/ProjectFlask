@@ -1,6 +1,6 @@
 from urllib.request import urlretrieve
 from wsgiref.util import request_uri
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 
 
 app = Flask("Projeto")
@@ -98,19 +98,33 @@ def login_validar():
         session["usuario"] = request.form["usuario"]
         session["senha"] = request.form["senha"]
         session["codigo"] = 1
+        
+        flash("Usuário autenticado.")
 
-        return redirect(url_for("acesso_restrito"))
+        return redirect(url_for("jogos"))
     else:
+        
+        flash("Usuário/senha incorretos.")
 
-        return "login/senha inválidos", 200
+        return  render_template("login.html"), 200 
 
 
 @app.route('/restrito')
 def acesso_restrito():
     if session["codigo"] == 1:
-        return "<br>Logado</br><br>Login: {}</br><br>Codigo: {}</br>".format(session["usuario"], session["codigo"]), 200
+        
+        return redirect("/jogos"), 200
     else:
-        return "Acesso inválido", 200
+        return  200
+    
+@app.route('/logout')
+def logout():
+    flash(session["usuario"] + " saiu.")
+    session["usuario"] = None
+    session["senha"] = None
+    session["codigo"] = None
+    
+    return render_template("login.html"), 200
 
 
 app.run()
