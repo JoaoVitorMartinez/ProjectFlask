@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 {% block conteudo %}
-    <form method="POST" action="/form_recebe">
+    <form method="POST" action="{{url_for('form_recebe')}}">
         Digite seu nome: <input type="text" name="nome">
         <input type="submit" value="Enviar">
     </form>

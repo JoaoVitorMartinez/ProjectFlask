@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 {% block conteudo %}
     <h1>Cadastra Jogo</h1>
-    <form method="POST" action="/form_jogos" >
+    <form method="POST" action="{{url_for('formjogos')}}" >
         <fieldset>
             <div class="form-group">
 

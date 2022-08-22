@@ -7,14 +7,32 @@ app = Flask("Projeto")
 app.secret_key = "asdhiadpjkqw"
 
 
+
 class Jogo():
     def __init__(self, nome, genero, console) -> None:
         self.nome = nome
         self.genero = genero
         self.console = console
+        
+class Usuario():
+    def __init__(self, usuario, senha) -> None:
+        self.usuario = usuario
+        self.senha = senha
+        
+eloisa = Usuario('eloisa', 123)
+joao = Usuario('joao', 123)
+antonio = Usuario('antonio', 123)
+        
+usuarios = {
+    eloisa.usuario: eloisa,
+    antonio.usuario: antonio,
+    joao.usuario: joao
+    
+}
 
 
 lista = []
+
 
 
 @app.route("/")
@@ -23,8 +41,11 @@ def main():
     produtos = [
         {"nome": "Caneta", "preco": 0.99},
         {"nome": "Xbox One", "preco": 1600.00}
+        
     ]
 
+    session["usuario"] = None
+    
     return render_template("index.html", n=nome, aProdutos=produtos), 200
 
 
@@ -37,8 +58,9 @@ def jogos():
 
 @app.route('/cadastra')
 def cadastraJogo():
-    if "usuario" not in session or session["usuario"] == None:
-        return redirect(url_for("login", proxima=url_for(cadastraJogo))), 200
+    if session["usuario"] == None:
+        
+        return redirect(url_for('login', next=url_for('cadastraJogo'))), 200
     else:
         
         return render_template("form_jogos.html"), 200
@@ -104,21 +126,18 @@ def login():
 
 @app.route('/login_validar', methods=['POST'])
 def login_validar():
-    if request.form["usuario"] == "joao" and request.form["senha"] == "123":
-        session["usuario"] = request.form["usuario"]
-        session["senha"] = request.form["senha"]
-        session["codigo"] = 1
-        
-        proxima_pagina = request.form["proxima"]
-        
-        flash("Usuário autenticado.")
+    if request.form['usuario'] in usuarios:
+        usuario = usuarios[request.form["usuario"]]
+        if request.form['senha'] == usuario.senha:
+            proxima_pagina = request.form["proxima"]
+            flash("Usuário autenticado.")
 
-        return redirect('/{}'.format(proxima_pagina))
-    else:
+            return redirect(proxima_pagina)
+    
         
-        flash("Usuário/senha incorretos.")
+    flash("Usuário/senha incorretos.")
 
-        return  render_template("login.html"), 200 
+    return  render_template("login.html"), 200 
 
 
 @app.route('/restrito')
