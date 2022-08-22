@@ -19,9 +19,9 @@ class Usuario():
         self.usuario = usuario
         self.senha = senha
         
-eloisa = Usuario('eloisa', 123)
-joao = Usuario('joao', 123)
-antonio = Usuario('antonio', 123)
+eloisa = Usuario('eloisa', '123')
+joao = Usuario('joao', '123')
+antonio = Usuario('antonio', '123')
         
 usuarios = {
     eloisa.usuario: eloisa,
@@ -117,7 +117,7 @@ def form_recebe():
 
 @app.route('/login')
 def login():
-    proxima=''
+    proxima='/'
     if request.args.get("next"):
         proxima = request.args.get("next")
     
@@ -130,6 +130,8 @@ def login_validar():
         usuario = usuarios[request.form["usuario"]]
         if request.form['senha'] == usuario.senha:
             proxima_pagina = request.form["proxima"]
+            session['usuario'] = request.form['usuario']
+            
             flash("Usuário autenticado.")
 
             return redirect(proxima_pagina)
