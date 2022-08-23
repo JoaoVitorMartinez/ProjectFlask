@@ -1,11 +1,35 @@
 from urllib.request import urlretrieve
 from wsgiref.util import request_uri
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask("Projeto")
 app.secret_key = "asdhiadpjkqw"
+app.config['SQLALCHEMY_DATABASE_URI'] =\
+    '{SGBD}://{usuario}:{senha}@{servidor}/{database}'.format(
+        SGBD = 'mysql+mysqlconnector',
+        usuario = 'root',
+        senha = 'root',
+        servidor = 'localhost',
+        database = 'jogoteca'
+    )
 
+db = SQLAlchemy(app)
+
+class Jogo(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome = db.Column(db.String(50), nullable=False)
+    categoria = db.Column(db.String(40), nullable=False)
+    console = db.Column(db.String(20), nullable=False)
+    
+    def __repr__(self):
+        return '<Name %r>' % self.name
+    
+
+class Usuario(db.Model):
+    usuario = db.Column(db.String(20), primary_key=True)
+    senha = db.Column(db.String(50), nullable=False)
+    
 
 
 class Jogo():
