@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] =\
 
 db = SQLAlchemy(app)
 
-class Jogo(db.Model):
+class Jogos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(50), nullable=False)
     categoria = db.Column(db.String(40), nullable=False)
@@ -26,38 +26,11 @@ class Jogo(db.Model):
         return '<Name %r>' % self.name
     
 
-class Usuario(db.Model):
-    usuario = db.Column(db.String(20), primary_key=True)
-    senha = db.Column(db.String(50), nullable=False)
+class Usuarios(db.Model):
+    nickname = db.Column(db.String(8), primary_key=True)
+    nome = db.Column(db.String(20), nullable=False)
+    senha = db.Column(db.String(100), nullable=False)
     
-
-
-class Jogo():
-    def __init__(self, nome, genero, console) -> None:
-        self.nome = nome
-        self.genero = genero
-        self.console = console
-        
-class Usuario():
-    def __init__(self, usuario, senha) -> None:
-        self.usuario = usuario
-        self.senha = senha
-        
-eloisa = Usuario('eloisa', '123')
-joao = Usuario('joao', '123')
-antonio = Usuario('antonio', '123')
-        
-usuarios = {
-    eloisa.usuario: eloisa,
-    antonio.usuario: antonio,
-    joao.usuario: joao
-    
-}
-
-
-lista = []
-
-
 
 @app.route("/")
 def main():
@@ -75,8 +48,7 @@ def main():
 
 @app.route('/jogos')
 def jogos():
-    jogo = Jogo("Red Dead Remdeption 2", "Mundo Aberto", "PC / Xbox one X/S")
-    lista.append(jogo)
+    lista = Jogos.query.order_by(Jogos.id)
     return render_template("jogos.html", jogos=lista), 200
 
 
@@ -97,13 +69,19 @@ def formjogos():
 
     if request.method == "POST":
         nome = request.form["nome"]
-        genero = request.form["genero"]
+        categoria = request.form["genero"]
         console = request.form["console"]
 
-        novoJogo = Jogo(nome, genero, console)
-        lista.append(novoJogo)
-
-        return render_template("jogos.html", jogos=lista), 200
+        jogo = Jogos.query.filter_by(nome=nome).first()
+        
+        if jogo:
+            return redirect(url_for('jogos')), 200
+        
+        novo_jogo = Jogos(nome=nome, categoria=categoria, console=console)
+        db.session.add(novo_jogo)
+        db.session.commit()
+        
+        return redirect(url_for('jogos')), 200
     else:
         return "Não pode chamar GET", 200
 
@@ -150,8 +128,8 @@ def login():
 
 @app.route('/login_validar', methods=['POST'])
 def login_validar():
-    if request.form['usuario'] in usuarios:
-        usuario = usuarios[request.form["usuario"]]
+    usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
+    if usuario:
         if request.form['senha'] == usuario.senha:
             proxima_pagina = request.form["proxima"]
             session['usuario'] = request.form['usuario']
