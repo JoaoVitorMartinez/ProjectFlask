@@ -1,3 +1,4 @@
+from http.client import ACCEPTED
 from flask import render_template, request, session, redirect, url_for, flash
 from models import Jogos, Usuarios
 from app import app, db
@@ -55,9 +56,12 @@ def formjogos():
     else:
         return "Não pode chamar GET", 200
     
-@app.route('/delete')
-def delete():
-    render_template('login.html'), 200
+@app.route('/delete/<int:id>')
+def delete(id):
+    Jogos.query.filter_by(id=id).delete()
+    db.session.commit()
+    
+    return redirect(url_for('jogos')), 200
 
 
 @app.route("/teste")
