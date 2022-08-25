@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    <h1>Editando Jogo</h1>
+    <form method="POST" action="{{url_for('formjogos')}}" >
+        <fieldset>
+            <div class="form-group">
+
+                <input type="hidden" name="{{jogo.id}}">
+
+                <label for="nome">Nome: </label>
+                <input type="text" name="nome" value="{{jogo.nome}}" class="form-control" style="width: 300px;">
+        
+            </div>
+
+            <div class="form-group">
+                <label for="genero">Genero: </label>
+                <input type="text" name="genero" value="{{jogo.categoria}}" class="form-control" style="width: 300px;">
+            </div>
+
+            <div class="form-group">
+                <label for="console">Console: </label>
+                <input type="text" name="console" value="{{jogo.console}}" class="form-control" style="width: 300px;">
+            </div>
+
+            <input type="submit" value="Enviar" class="btn btn-primary btn-salvar">
+
+        </fieldset>
+    </form>
+
+{% endblock %}

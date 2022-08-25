@@ -32,6 +32,14 @@ def cadastraJogo():
         
         return render_template("form_jogos.html"), 200
     
+@app.route('/editar/<int:id>')
+def editar(id):
+    jogo = Jogos.query.filter_by(id=id).first()
+    
+    
+    
+    return render_template('editar.html', jogo=jogo)
+    
     
 
 
