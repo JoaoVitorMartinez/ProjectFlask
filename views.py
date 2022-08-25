@@ -43,12 +43,15 @@ def editar(id):
 
 @app.route('/atualizar', methods=['POST'])
 def atualizar():
-    # jogo = Jogos.query.filter_by(id=request.form['id']).first()
+    jogo = Jogos.query.filter_by(id=request.form['id']).first()
     
-    # jogo.nome = request.form['nome']
-    # jogo.categoria = request.form['categoria']
-    # jogo.console = request.form['console']
-    # db.session.commit()
+    jogo.nome = request.form['nome']
+    jogo.categoria = request.form['categoria']
+    jogo.console = request.form['console']
+    
+    db.session.add(jogo)
+    db.session.commit()
+    
     return redirect(url_for('jogos')), 200
     
     
