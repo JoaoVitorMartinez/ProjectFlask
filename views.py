@@ -1,4 +1,5 @@
 from http.client import ACCEPTED
+from importlib.metadata import requires
 from flask import render_template, request, session, redirect, url_for, flash
 from models import Jogos, Usuarios
 from app import app, db
@@ -39,6 +40,16 @@ def editar(id):
     
     
     return render_template('editar.html', jogo=jogo)
+
+@app.route('/atualizar', methods=['POST'])
+def atualizar():
+    # jogo = Jogos.query.filter_by(id=request.form['id']).first()
+    
+    # jogo.nome = request.form['nome']
+    # jogo.categoria = request.form['categoria']
+    # jogo.console = request.form['console']
+    # db.session.commit()
+    return redirect(url_for('jogos')), 200
     
     
 
