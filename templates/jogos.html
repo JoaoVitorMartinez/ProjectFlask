@@ -1,31 +1,32 @@
 {% extends "template.html" %}
 {% block conteudo %}
         <h1>Lista de Jogos Favoritos</h1>
-        
-        <table class="table table-striped table-responsive table-bordered" style="width: auto; align-self: center; text-align: center;">
-            <thead class="thead-default">
-                <tr>
-                    <th>Nome</th>
-                    <th>Genero</th>
-                    <th>Console</th>
-                    <th>Editar</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for jogo in jogos %}
-                <tr>
-                    <td>{{jogo.nome}}</td>
-                    <td>{{jogo.categoria}}</td>
-                    <td>{{jogo.console}}</td>
-                    <td><a href="{{url_for('editar', id=jogo.id)}}">Editar</a></td>
-                    <td><a href="{{url_for('delete', id=jogo.id)}}">Delete</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            
-            
-        </table>
-        
+        <div>
+            <table class="table table-striped table-responsive table-bordered" style="width: auto; align-self: center; text-align: center;">
+                <thead class="thead-default">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Genero</th>
+                        <th>Console</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jogo in jogos %}
+                    <tr>
+                        <td>{{jogo.nome}}</td>
+                        <td>{{jogo.categoria}}</td>
+                        <td>{{jogo.console}}</td>
+                        <td>
+                            <a href="{{url_for('editar', id=jogo.id)}}" class="btn btn-primary btn-salvar">Editar</a>
+                            <a href="{{url_for('delete', id=jogo.id)}}" class="btn btn-primary btn-salvar">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+                
+            </table>
+        </div>
         
 {% endblock %}
