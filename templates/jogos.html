@@ -17,6 +17,7 @@
                         <td>{{jogo.nome}}</td>
                         <td>{{jogo.categoria}}</td>
                         <td>{{jogo.console}}</td>
+                        <!-- <td><img src="" alt=""></td> -->
                         <td>
                             <a href="{{url_for('editar', id=jogo.id)}}" class="btn btn-primary btn-salvar">Editar</a>
                             <a href="{{url_for('delete', id=jogo.id)}}" class="btn btn-primary btn-salvar">Delete</a>
@@ -28,5 +29,7 @@
                 
             </table>
         </div>
+
+        
         
 {% endblock %}

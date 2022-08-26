@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
-        
+        <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+
         <title>FLASK | HOME</title>
         
         {% with messages = get_flashed_messages() %}
@@ -18,6 +19,8 @@
         
     </head>
     <body>
+        <div class="container">
         {% block conteudo %} {% endblock %}
+        </div>  
     </body>
 </html>

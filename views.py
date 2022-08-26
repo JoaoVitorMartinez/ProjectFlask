@@ -1,5 +1,6 @@
 from http.client import ACCEPTED
 from importlib.metadata import requires
+from flask import send_from_directory
 from flask import render_template, request, session, redirect, url_for, flash
 from models import Jogos, Usuarios
 from app import app, db
@@ -52,7 +53,13 @@ def atualizar():
     db.session.add(jogo)
     db.session.commit()
     
-    return redirect(url_for('jogos')), 200
+    arquivo = request.files['imagem']
+    img_path = app.config['IMG_PATH']
+    arquivo.save(f'{img_path}/capa{jogo.id}.png')
+    path = f'{img_path}/capa{jogo.id}.png'
+    
+    
+    return redirect(url_for('jogos', img=path)), 200
     
     
 
@@ -73,6 +80,9 @@ def formjogos():
         novo_jogo = Jogos(nome=nome, categoria=categoria, console=console)
         db.session.add(novo_jogo)
         db.session.commit()
+        
+        arquivo = request.files['imagem']
+        arquivo.save(f'img/{arquivo.filename}')
         
         return redirect(url_for('jogos')), 200
     else:
@@ -164,3 +174,7 @@ def logout():
     session["codigo"] = None
     
     return render_template("login.html"), 200
+
+@app.route('/img/<nome_arquivo>')
+def imagem(nome_arquivo):
+    return send_from_directory('img', nome_arquivo)

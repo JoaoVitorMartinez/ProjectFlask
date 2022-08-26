@@ -1,8 +1,28 @@
 {% extends "template.html" %}
 {% block conteudo %}
     <h1>Cadastra Jogo</h1>
-    <form method="POST" action="{{url_for('formjogos')}}" >
+    <form method="POST" action="{{url_for('formjogos')}}" enctype="multipart/form-data">
+        
+            <figure style="height: auto; width: 400px; border: none;" class="img-thumbnail col-md-4">
+                <img src="{{url_for('imagem', nome_arquivo='capa_padrao.png')}}" alt="figura" style="width: 240px; height: 300px;">
+                <figcaption>
+                    <label class="fileContainer" >
+
+                        <div class="form-group">
+                            Editar Capa
+
+                            <input type="file" name="imagem" accept='.png'>
+            
+                        </div>
+
+                    </label>
+                </figcaption>
+            </figure>
+       
         <fieldset>
+
+            
+
             <div class="form-group">
 
                 <label for="nome">Nome: </label>
