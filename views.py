@@ -85,8 +85,11 @@ def formjogos():
         db.session.add(novo_jogo)
         db.session.commit()
         
+        jogo = Jogos.query.filter_by(nome=nome).first()
+        
+        
         arquivo = request.files['imagem']
-        arquivo.save(f'img/{arquivo.filename}')
+        arquivo.save(f'img/capa{jogo.id}.jpg')
         
         return redirect(url_for('jogos')), 200
     else:
