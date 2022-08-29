@@ -82,7 +82,7 @@ def formjogos():
         db.session.commit()
         
         arquivo = request.files['imagem']
-        arquivo.save(f'img/{arquivo.filename}')
+        arquivo.save(f'img/capa{novo_jogo.id}.png')
         
         return redirect(url_for('jogos')), 200
     else:
