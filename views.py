@@ -1,4 +1,5 @@
 from http.client import ACCEPTED
+import helpers
 from importlib.metadata import requires
 from flask import send_from_directory
 from flask import render_template, request, session, redirect, url_for, flash
@@ -37,10 +38,13 @@ def cadastraJogo():
 @app.route('/editar/<int:id>')
 def editar(id):
     jogo = Jogos.query.filter_by(id=id).first()
+    nome_arquivo = helpers.recupera_imagem(jogo.id)
     
     
     
-    return render_template('editar.html', jogo=jogo)
+    
+    
+    return render_template('editar.html', jogo=jogo, nome_arquivo=nome_arquivo)
 
 @app.route('/atualizar', methods=['POST'])
 def atualizar():
