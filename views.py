@@ -59,11 +59,9 @@ def atualizar():
     
     arquivo = request.files['imagem']
     img_path = app.config['IMG_PATH']
-    arquivo.save(f'{img_path}/capa{jogo.id}.png')
-    path = f'{img_path}/capa{jogo.id}.png'
-    
-    
-    return redirect(url_for('jogos', img=path)), 200
+    arquivo.save(f'{img_path}/capa{jogo.id}.jpg')
+        
+    return redirect(url_for('jogos')), 200
     
     
 
@@ -102,19 +100,6 @@ def delete(id):
     
     return redirect(url_for('jogos')), 200
 
-
-@app.route("/teste")
-@app.route("/teste/<var>")
-def teste(var=""):
-    return "Nova rota teste: {}".format(var), 200
-
-
-@app.route("/outra")
-@app.route("/outra/<var>")
-def outra(var=""):
-    return "Var: {}".format(var), 200
-
-# Rota formulário
 
 
 @app.route("/form")
