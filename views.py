@@ -39,6 +39,7 @@ def cadastraJogo():
 def editar(id):
     jogo = Jogos.query.filter_by(id=id).first()
     nome_arquivo = helpers.recupera_imagem(jogo.id)
+    print(nome_arquivo)
     
     
     
