@@ -41,10 +41,6 @@ def editar(id):
     nome_arquivo = helpers.recupera_imagem(jogo.id)
     print(nome_arquivo)
     
-    
-    
-    
-    
     return render_template('editar.html', jogo=jogo, nome_arquivo=nome_arquivo)
 
 @app.route('/atualizar', methods=['POST'])
