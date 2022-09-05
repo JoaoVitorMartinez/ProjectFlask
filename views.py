@@ -39,9 +39,8 @@ def cadastraJogo():
 def editar(id):
     jogo = Jogos.query.filter_by(id=id).first()
     nome_arquivo = helpers.recupera_imagem(jogo.id)
-    print(nome_arquivo)
-    
-    return render_template('editar.html', jogo=jogo, nome_arquivo=nome_arquivo)
+       
+    return render_template('editar.html', jogo=jogo, capa=nome_arquivo)
 
 @app.route('/atualizar', methods=['POST'])
 def atualizar():
@@ -54,10 +53,12 @@ def atualizar():
     db.session.add(jogo)
     db.session.commit()
     
-    arquivo = request.files['imagem']
     img_path = app.config['IMG_PATH']
-    arquivo.save(f'{img_path}/capa{jogo.id}.jpg')
-        
+    arquivo = request.files['imagem']
+
+    if arquivo:
+        arquivo.save(f'{img_path}/capa{jogo.id}.jpg')
+
     return redirect(url_for('jogos')), 200
     
     
