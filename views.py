@@ -6,21 +6,8 @@ from flask import render_template, request, session, redirect, url_for, flash
 from models import Jogos, Usuarios
 from app import app, db
 
-@app.route("/")
-def main():
-    nome = "variável"
-    produtos = [
-        {"nome": "Caneta", "preco": 0.99},
-        {"nome": "Xbox One", "preco": 1600.00}
-        
-    ]
 
-    session["usuario"] = None
-    
-    return render_template("index.html", n=nome, aProdutos=produtos), 200
-
-
-@app.route('/jogos')
+@app.route('/')
 def jogos():
     lista = Jogos.query.order_by(Jogos.id)
     return render_template("jogos.html", jogos=lista), 200
